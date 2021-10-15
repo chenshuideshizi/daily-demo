@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas rotate picture</title>
+</head>
+<body>
+    <div>
+        <button type="button" onclick="rotateImage('./images/liudehua.jpeg')">旋转</button>
+    </div>
+    <script>
+        function loadImage(src) {
+            let image
+            if (typeof src === 'object') {
+                image = src
+            } else {
+                image = new Image()
+                image.src = src
+            }
+
+            return new Promise((resolve, reject) => {
+                image.onload = function () {
+                    const imgWidth = this.width
+                    const imgHeight = this.height
+
+                    resolve({
+                        width: this.width,
+                        height: this.height,
+                        target: image
+                    })
+                }
+            })
+        }
+
+        async function rotateImage(image) {
+            const {width, height, target} = await loadImage(image)
+
+            const degree = 90
+
+            const canvas = document.createElement('canvas')
+            canvas.height = width
+            canvas.width = height
+
+            const ctx = canvas.getContext('2d')
+            
+            const angle = degree * Math.PI / 180
+            ctx.rotate(angle)
+
+            ctx.drawImage(target, 0, -height);  
+
+            const base64 = canvas.toDataURL('image/jpeg', 1.0)
+
+            const resultImage = new Image()
+            resultImage.src = base64
+            document.body.appendChild(resultImage)
+        }
+
+
+
+
+    </script>
+</body>
+</html>
