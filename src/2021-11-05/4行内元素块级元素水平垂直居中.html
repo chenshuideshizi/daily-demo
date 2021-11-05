@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行内元素块级元素水平垂直居中</title>
+  <style>
+    /*
+      方法一
+      先把父级元素设置为相对定位
+      然后给子元素的top、right、left、bottom设置为0px，还要记得margin设置为auto哦
+      tips: auto 让浏览器自己选择一个合适的外边距。有时，在一些特殊情况下，该值可以使元素居中。
+    */
+    .outer{
+			width: 500px;
+			height: 500px;
+			background-color: #ddd;
+			border: 1px solid red;
+			position: relative;
+		}
+		.inner{
+			width: 100px;
+			height: 100px;
+			margin:auto;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			background-color: pink;
+		}
+
+    /*
+      方法二
+      先给父元素设置绝对定位
+      再给子元素设置绝定定位，并且把top设置为父元素宽度的一半再减去子元素本身的宽度，当然left同理。
+     */
+
+     .outer{
+			width: 500px;
+			height: 500px;
+			background-color: #ddd;
+			border: 1px solid red;
+			position: absolute;
+		}
+		.inner{
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			top: calc(50% - 50px);
+			left: calc(50% - 50px);
+		}
+
+    /**
+     方法三
+     先给父元素设置相对定位
+      再给子元素设置绝对定位，把子元素的top和left设置为父元素宽度的一半，并且将向外的偏移量设置为子元素自己宽高的一半
+    */
+
+    .outer{
+			width: 500px;
+			height: 500px;
+			background-color: #ddd;
+			border: 1px solid red;
+			position: relative;
+		}
+		.inner{
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -50px;
+			margin-top: -50px;
+		}
+
+   /*
+    这种方式借用的是flex的特性首先给父元素display设置为flex，
+    然后将justify-content设置为center，align-items也设置为 center。
+    这里的意思就是让其子元素在自己的主轴和交叉轴上居中如果不明白的话，可以先去看一看flex布局的一些特性。
+  */
+
+                .outer{
+			width: 500px;
+			height: 500px;
+			background-color: #ddd;
+			border: 1px solid red;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.inner{
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			
+		}
+
+  </style>
+</head>
+<body>
+    <div class="outer">
+      <div class="inner"></div>
+    </div>
+  
+</body>
+</html>
